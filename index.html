@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Age Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #result.show {
+            opacity: 1;
+        }
+        #video {
+            display: none;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        #video.show {
+            display: block;
+            opacity: 1;
+        }
+        .hover {
+            height: 400px;
+            width: 320px;
+            background-image: url(https://i.pinimg.com/736x/66/75/6b/66756b83dbbb8144cf5976af44a02c20.jpg);
+            background-size: cover;
+            border-radius: 20px;
+            transition: 0.5s;
+            overflow: hidden;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            margin: 20px auto;
+            filter: grayscale(100%);
+        }
+        .hover:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.7);
+        }
+        .hover h1, .hover p {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .hover h1 {
+            font-size: 28px;
+        }
+        .hover p {
+            font-size: 18px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+            width: 80%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px #fff;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 15px;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+        iframe {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+     <div class="hover">
+        <div class="greyscale">   
+            <h1>Age Verification</h1>
+            <p>Please enter your age (1-99):</p>
+            <input type="number" id="ageInput" min="1" max="99" placeholder="Enter your age" required>
+            <button onclick="verifyAge()">Verify</button>  
+        </div>
+    </div>
+    <div id="result"></div>
+    <div id="video">
+        <h2>You're verified!</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/IO3rYac6eMg?si=GM52R9KG5O2H3KZZ" title="YouTube video player" allowfullscreen></iframe>
+    </div>
+    <script>
+        function verifyAge() {
+            const age = parseInt(document.getElementById('ageInput').value);
+            const resultDiv = document.getElementById('result');
+            const videoDiv = document.getElementById('video');
+
+            if (!isNaN(age) && age >= 1 && age <= 99) {
+                if (age < 18) {
+                    resultDiv.textContent = "No access. You must be 18 or older.";
+                    resultDiv.style.color = "red";
+                    resultDiv.classList.add('show');
+                    videoDiv.classList.remove('show');
+                } else {
+                    resultDiv.textContent = "You're verified!";
+                    resultDiv.style.color = "green";
+                    resultDiv.classList.add('show');
+                    videoDiv.classList.add('show');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
